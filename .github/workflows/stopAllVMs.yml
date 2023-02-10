@@ -1,4 +1,4 @@
-name: Deploy Azure resources
+name: Stop All VMs
 
 on:
   workflow_dispatch:
