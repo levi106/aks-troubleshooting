@@ -1,4 +1,4 @@
-param baseName string = 'aks-workshop-${uniqueString(resourceGroup().id)}'
+param baseName string = 'aks-ws-${uniqueString(resourceGroup().id)}'
 param location string = resourceGroup().location
 param vnetPrefix string = '172.17.0.0/16'
 param defaultSubnetPrefix string = '172.17.0.0/24'
@@ -9,7 +9,7 @@ param adminUsername string = 'azureuser'
 param adminPassword string
 
 var vnetName = toLower('vnet-${baseName}')
-var vmName = toLower('vm-${baseName}')
+var vmName = toLower('vm')
 
 module vnet 'modules/vnet.bicep' = {
   name: vnetName
