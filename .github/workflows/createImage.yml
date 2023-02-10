@@ -26,5 +26,5 @@ jobs:
             sed -i -e "s/<region>/${{ secrets.LOCATION }}/g" imageTemplateWin.json
             sed -i -e "s/<imageName>/${{ secrets.IMAGENAME }}/g" imageTemplateWin.json
             sed -i -e "s/<runOutputName>/${{ secrets.RUNOUTPUTNAME }}/g" imageTemplateWin.json
-            sed -i -e "s/<imgBuilderId>/${{ secrets.IMGBUILDERID }}/g" imageTemplateWin.json
+            sed -i -e "s|<imgBuilderId>|${{ secrets.IMGBUILDERID }}|g" imageTemplateWin.json
             az resource create -g ${{ secrets.IMAGERESOURCEGROUP }} --properties @imageTemplateWin.json --is-full-object --resource-type Microsoft.VirtualMachineImages/imageTemplates -n aksWorkshopImageTemplateWin01 
