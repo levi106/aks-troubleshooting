@@ -4,7 +4,7 @@
     "location": "<region>",
     "dependsOn": [],
     "tags": {
-        "imagebuilderTemplate": "windows2022",
+        "imagebuilderTemplate": "windows2019",
         "userIdentity": "enabled"
             },
         "identity": {
@@ -28,7 +28,7 @@
             "type": "PlatformImage",
                 "publisher": "MicrosoftWindowsServer",
                 "offer": "WindowsServer",
-                "sku": "2022-datacenter-azure-edition-core",
+                "sku": "2019-datacenter",
                 "version": "latest"
             
         },
@@ -71,7 +71,7 @@
                     "runOutputName": "<runOutputName>",
                     "artifactTags": {
                         "source": "azVmImageBuilder",
-                        "baseosimg": "windows2022"
+                        "baseosimg": "windows2019"
                     }
                 }
             ]
