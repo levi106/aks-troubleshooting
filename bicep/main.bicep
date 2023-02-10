@@ -15,6 +15,17 @@ var vnetName = toLower('vnet-${baseName}')
 var vmName = toLower('vm')
 var sqlServerName = toLower('sql-${baseName}')
 var dbName = toLower('db-${baseName}')
+var laName = toLower('la-${baseName}')
+var aksName = toLower(baseName)
+
+module la 'modules/loganalytics.bicep' = {
+  name: laName
+  scope: resourceGroup()
+  params: {
+    name: laName
+    location: location
+  }
+}
 
 module vnet 'modules/vnet.bicep' = {
   name: vnetName
@@ -54,5 +65,15 @@ module sql 'modules/sql.bicep' = {
     location: location
     adminUsername: sqlAdminUsername
     adminPassword: sqlAdminPassword
+  }
+}
+
+module aks 'modules/aks.bicep' = {
+  name: aksName
+  scope: resourceGroup()
+  params: {
+    name: aksName
+    location: location
+    laId: la.outputs.id
   }
 }
