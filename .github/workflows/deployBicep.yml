@@ -21,5 +21,9 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: |
             cd bicep
-            az deployment group create -g ${{ secrets.RESOURCEGROUP }} --template-file=main.bicep --parameters adminPassword=${{ secrets.ADMINPASSWORD }} --parameters imageReferenceId=${{ secrets.IMAGEREFERENCEID }}
+            az deployment group create -g ${{ secrets.RESOURCEGROUP }} \
+              --template-file=main.bicep \
+              --parameters adminPassword=${{ secrets.ADMINPASSWORD }} \
+              --parameters imageReferenceId=${{ secrets.IMAGEREFERENCEID }} \
+              --parameters sqlAdminPassword=${{ secrets.SQLADMINPASSWORD }}
             
