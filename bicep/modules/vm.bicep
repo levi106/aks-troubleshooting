@@ -76,3 +76,22 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
     }
   }
 }
+
+resource shutdown 'Microsoft.DevTestLab/schedules@2018-09-15' = {
+  name: 'shutdown-${name}'
+  location: location
+  properties: {
+    status: 'Enabled'
+    taskType: 'ComputeVmShutdownTask'
+    dailyRecurrence: {
+      time: '00:00'
+    }
+    timeZoneId: 'Tokyo Standard Time'
+    targetResourceId: vm.id
+    notificationSettings: {
+      status: 'Disabled'
+      notificationLocale: 'ja'
+      timeInMinutes: 30
+    }
+  }
+}
