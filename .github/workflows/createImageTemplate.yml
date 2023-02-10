@@ -1,4 +1,4 @@
-name: Create Image
+name: Create Image Template
 
 on:
   workflow_dispatch:
