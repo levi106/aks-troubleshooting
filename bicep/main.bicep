@@ -7,9 +7,14 @@ param imageReferenceId string
 param adminUsername string = 'azureuser'
 @secure()
 param adminPassword string
+param sqlAdminUsername string = 'sqladmin'
+@secure()
+param sqlAdminPassword string
 
 var vnetName = toLower('vnet-${baseName}')
 var vmName = toLower('vm')
+var sqlServerName = toLower('sql-${baseName}')
+var dbName = toLower('db-${baseName}')
 
 module vnet 'modules/vnet.bicep' = {
   name: vnetName
@@ -39,3 +44,15 @@ module vm 'modules/vm.bicep' = [for i in range(0, vmCount): {
     adminPassword: adminPassword
   }
 }]
+
+module sql 'modules/sql.bicep' = {
+  name: sqlServerName
+  scope: resourceGroup()
+  params: {
+    sqlServerName: sqlServerName
+    dbName: dbName
+    location: location
+    adminUsername: sqlAdminUsername
+    adminPassword: sqlAdminPassword
+  }
+}
