@@ -23,11 +23,11 @@ resource userResourceGroups 'Microsoft.Resources/resourceGroups@2021-04-01' = [f
 }]
 
 module sql 'modules/sql.bicep' = {
-  name: 'sql-${uniqueString(systemResourceGroup.id)}}'
+  name: 'sql-${uniqueString(systemResourceGroup.id)}'
   scope: systemResourceGroup
   params: {
-    sqlServerName: 'sql-${uniqueString(systemResourceGroup.id)}}'
-    dbName: 'db-${uniqueString(systemResourceGroup.id)}}'
+    sqlServerName: 'sql-${uniqueString(systemResourceGroup.id)}'
+    dbName: 'db-${uniqueString(systemResourceGroup.id)}'
     location: location
     adminUsername: sqlAdminUsername
     adminPassword: sqlAdminPassword
