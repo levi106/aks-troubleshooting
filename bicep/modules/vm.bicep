@@ -1,6 +1,6 @@
 param name string
 param location string
-param subnetId string
+param vnetName string
 param privateIPAddress string
 param imageReferenceId string
 param adminUsername string
@@ -8,6 +8,10 @@ param adminUsername string
 param adminPassword string
 
 var vmSize = 'Standard_D2s_v3'
+
+resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' existing = {
+  name: '${vnetName}/default'
+}
 
 resource pip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
   name: '${name}-pip'
@@ -32,7 +36,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
           privateIPAllocationMethod: 'Static'
           privateIPAddress: privateIPAddress
           subnet: {
-            id: subnetId
+            id: subnet.id
           }
           publicIPAddress: {
             id: pip.id

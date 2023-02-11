@@ -1,7 +1,9 @@
+targetScope = 'subscription'
+
+param systemResourceGroupName string = 'aksWorkshopRG'
+param userBaseResourceGroupName string = 'aksWorkshopRG'
 param baseName string = 'aks-ws-${uniqueString(resourceGroup().id)}'
-param location string = resourceGroup().location
-param vnetPrefix string = '172.17.0.0/16'
-param defaultSubnetPrefix string = '172.17.0.0/24'
+param location string = deployment().location
 param vmCount int = 2
 param imageReferenceId string
 param adminUsername string = 'azureuser'
@@ -11,92 +13,87 @@ param sqlAdminUsername string = 'sqladmin'
 @secure()
 param sqlAdminPassword string
 
-var vnetName = toLower('vnet-${baseName}')
-var vmName = toLower('vm')
-var sqlServerName = toLower('sql-${baseName}')
-var dbName = toLower('db-${baseName}')
-var laName = toLower('la-${baseName}')
-var aiName = toLower('ai-${baseName}')
-var aksName = toLower(baseName)
-var storageName = take(replace(toLower('${baseName}'),'-',''), 24)
-
-resource la 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
-  name: laName
+resource systemResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: systemResourceGroupName
   location: location
 }
 
-resource ai 'Microsoft.Insights/components@2020-02-02' = {
-  name: aiName
+resource userResourceGroups 'Microsoft.Resources/resourceGroups@2021-04-01' = [for i in range(0, vmCount): {
+  name: '${userBaseResourceGroupName}-user${i}'
   location: location
-  kind: 'web'
-  properties: {
-    Application_Type: 'web'
-    WorkspaceResourceId: la.id
-  }
-}
-
-resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
-  name: storageName
-  location: location
-  sku: {
-    name: 'Standard_LRS'
-  }
-  kind: 'StorageV2'
-  properties: {
-    accessTier: 'Hot'
-    allowBlobPublicAccess: true
-    allowSharedKeyAccess: true
-    minimumTlsVersion: 'TLS1_2'
-  }
-}
-
-module vnet 'modules/vnet.bicep' = {
-  name: vnetName
-  scope: resourceGroup()
-  params: {
-    name: vnetName
-    location: location
-    vnetPrefix: vnetPrefix
-    subnetPrefix: defaultSubnetPrefix
-  }
-}
-
-resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' existing = {
-  name: '${vnet.name}/default'
-}
-
-module vm 'modules/vm.bicep' = [for i in range(0, vmCount): {
-  name: '${vmName}-${i}'
-  scope: resourceGroup()
-  params: {
-    name: '${vmName}-${i}'
-    location: location
-    subnetId: subnet.id
-    privateIPAddress: '172.17.0.1${i}'
-    imageReferenceId: imageReferenceId
-    adminUsername: adminUsername
-    adminPassword: adminPassword
-  }
 }]
 
 module sql 'modules/sql.bicep' = {
-  name: sqlServerName
-  scope: resourceGroup()
+  name: 'sql-${uniqueString(systemResourceGroup.id)}}'
+  scope: systemResourceGroup
   params: {
-    sqlServerName: sqlServerName
-    dbName: dbName
+    sqlServerName: 'sql-${uniqueString(systemResourceGroup.id)}}'
+    dbName: 'db-${uniqueString(systemResourceGroup.id)}}'
     location: location
     adminUsername: sqlAdminUsername
     adminPassword: sqlAdminPassword
   }
 }
 
-module aks 'modules/aks.bicep' = {
-  name: aksName
-  scope: resourceGroup()
+module storage 'modules/storage.bicep' = {
+  name: take(replace(toLower('aksws${uniqueString(systemResourceGroup.id)}}'),'-',''), 24)
+  scope: systemResourceGroup
   params: {
-    name: aksName
+    name: take(replace(toLower('aksws${uniqueString(systemResourceGroup.id)}}'),'-',''), 24)
     location: location
-    laId: la.id
   }
 }
+
+module la 'modules/la.bicep' = [for i in range(0, vmCount): {
+  name: 'la-${i}'
+  scope: userResourceGroups[i]
+  params: {
+    name: 'la-${i}'
+    location: location
+  }
+}]
+
+module ai 'modules/ai.bicep' = [for i in range(0, vmCount): {
+  name: 'ai-${i}'
+  scope: userResourceGroups[i]
+  params: {
+    name: 'ai-${i}'
+    location: location
+    laId: la[i].outputs.id
+  }
+}]
+
+module vnet 'modules/vnet.bicep' = [for i in range(0, vmCount): {
+  name: 'vnet-${i}'
+  scope: userResourceGroups[i]
+  params: {
+    name: 'vnet-${i}'
+    location: location
+    vnetPrefix: '172.17.${i}.0/16'
+    subnetPrefix: '172.17.${i}.0/24'
+  }
+}]
+
+module vm 'modules/vm.bicep' = [for i in range(0, vmCount): {
+  name: 'vm-${i}'
+  scope: userResourceGroups[i]
+  params: {
+    name: 'vm-${i}'
+    location: location
+    vnetName: vnet[i].outputs.name
+    privateIPAddress: '172.17.${i}.10'
+    imageReferenceId: imageReferenceId
+    adminUsername: adminUsername
+    adminPassword: adminPassword
+  }
+}]
+
+module aks 'modules/aks.bicep' = [for i in range(0, vmCount): {
+  name: 'aks-${i}'
+  scope: userResourceGroups[i]
+  params: {
+    name: 'aks-${i}'
+    location: location
+    laId: la[i].outputs.id
+  }
+}]
