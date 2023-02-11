@@ -68,8 +68,8 @@ module vnet 'modules/vnet.bicep' = [for i in range(0, vmCount): {
   params: {
     name: 'vnet-${i}'
     location: location
-    vnetPrefix: '172.17.${i}.0/16'
-    subnetPrefix: '172.17.${i}.0/24'
+    vnetPrefix: '172.${10+i}.0.0/16'
+    subnetPrefix: '172.${10+i}.0.0/24'
   }
 }]
 
@@ -80,7 +80,7 @@ module vm 'modules/vm.bicep' = [for i in range(0, vmCount): {
     name: 'vm-${i}'
     location: location
     vnetName: vnet[i].outputs.name
-    privateIPAddress: '172.17.${i}.10'
+    privateIPAddress: '172.${10+i}.0.10'
     imageReferenceId: imageReferenceId
     adminUsername: adminUsername
     adminPassword: adminPassword
