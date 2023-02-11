@@ -21,6 +21,9 @@ resource pip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
     tier: 'Regional'
   }
   properties: {
+    dnsSettings: {
+      domainNameLabel: '${name}-${uniqueString(resourceGroup().id)}'
+    }
     publicIPAllocationMethod: 'Static'
   }
 }

@@ -35,10 +35,10 @@ module sql 'modules/sql.bicep' = {
 }
 
 module storage 'modules/storage.bicep' = {
-  name: take(replace(toLower('aksws${uniqueString(systemResourceGroup.id)}}'),'-',''), 24)
+  name: take(replace(toLower('aksws${uniqueString(systemResourceGroup.id)}'),'-',''), 24)
   scope: systemResourceGroup
   params: {
-    name: take(replace(toLower('aksws${uniqueString(systemResourceGroup.id)}}'),'-',''), 24)
+    name: take(replace(toLower('aksws${uniqueString(systemResourceGroup.id)}'),'-',''), 24)
     location: location
   }
 }
