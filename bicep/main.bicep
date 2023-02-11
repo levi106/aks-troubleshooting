@@ -2,7 +2,6 @@ targetScope = 'subscription'
 
 param systemResourceGroupName string = 'aksWorkshopRG'
 param userBaseResourceGroupName string = 'aksWorkshopRG'
-param baseName string = 'aks-ws-${uniqueString(resourceGroup().id)}'
 param location string = deployment().location
 param vmCount int = 2
 param imageReferenceId string
