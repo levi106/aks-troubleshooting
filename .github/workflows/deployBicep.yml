@@ -26,5 +26,6 @@ jobs:
               --template-file=main.bicep \
               --parameters adminPassword=${{ secrets.ADMINPASSWORD }} \
               --parameters imageReferenceId=${{ secrets.IMAGEREFERENCEID }} \
-              --parameters sqlAdminPassword=${{ secrets.SQLADMINPASSWORD }}
+              --parameters sqlAdminPassword=${{ secrets.SQLADMINPASSWORD }} \
+              --parameters vmCount=${{ secrets.VMCOUNT }}
             
