@@ -1,0 +1,27 @@
+name: Stop All AKS Clusters
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Azure CLI script file
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            for (( i=0; i<${{ secrets.VMCOUNT }}; i++))
+            do
+              az aks stop -g ${{ secrets.RESOURCEGROUP }}-$i -n aks-$i
+            done
+            
