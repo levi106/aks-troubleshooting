@@ -22,6 +22,6 @@ jobs:
           inlineScript: |
             for (( i=0; i<${{ secrets.VMCOUNT }}; i++))
             do
-              az aks stop -g ${{ secrets.RESOURCEGROUP }}-$i -n aks-$i
+              az aks stop -g ${{ secrets.RESOURCEGROUP }}-user$i -n aks-$i
             done
             
