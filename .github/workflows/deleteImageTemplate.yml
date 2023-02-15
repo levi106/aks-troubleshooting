@@ -18,6 +18,6 @@ jobs:
       - name: Azure CLI script file
         uses: azure/CLI@v1
         with:
-          azcliversion: 2.30.0
+          azcliversion: 2.45.0
           inlineScript: |
             az resource delete -g ${{ secrets.IMAGERESOURCEGROUP }} --resource-type Microsoft.VirtualMachineImages/imageTemplates -n aksWorkshopImageTemplateWin01

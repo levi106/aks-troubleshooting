@@ -18,7 +18,7 @@ jobs:
       - name: Azure CLI script file
         uses: azure/CLI@v1
         with:
-          azcliversion: 2.30.0
+          azcliversion: 2.45.0
           inlineScript: |
             cd aib
             sed -i -e "s/<subscriptionID>/${{ secrets.SUBSCRIPTIONID }}/g" imageTemplateWin.json
