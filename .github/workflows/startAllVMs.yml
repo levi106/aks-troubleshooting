@@ -21,4 +21,4 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/utils/start_all_vms.sh
-            $GITHUB_WORKSPACE/start_all_vms.sh
+            $GITHUB_WORKSPACE/utils/start_all_vms.sh
