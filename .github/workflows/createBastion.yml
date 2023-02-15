@@ -1,4 +1,4 @@
-name: Start All VMs
+name: Create Bastion
 
 on:
   workflow_dispatch:
@@ -20,5 +20,5 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
-            chmod +x $GITHUB_WORKSPACE/utils/start_all_vms.sh
-            $GITHUB_WORKSPACE/start_all_vms.sh
+            chmod +x $GITHUB_WORKSPACE/utils/create_baastion.sh
+            $GITHUB_WORKSPACE/create_baastion.sh
