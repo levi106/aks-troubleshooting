@@ -72,6 +72,15 @@ module vnet 'modules/vnet.bicep' = {
   }
 }
 
+module pip 'modules/publicip.bicep' = {
+  name: 'bastionPip'
+  scope: systemResourceGroup
+  params: {
+    name: 'bastion'
+    location: location
+  }
+}
+
 module vm 'modules/vm.bicep' = [for i in range(0, numOfUsers): {
   name: 'vm-${i}'
   scope: userResourceGroups[i]
