@@ -20,5 +20,5 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
-            chmod +x $GITHUB_WORKSPACE/utils/create_baastion.sh
-            $GITHUB_WORKSPACE/create_baastion.sh
+            chmod +x $GITHUB_WORKSPACE/utils/create_bastion.sh
+            $GITHUB_WORKSPACE/create_bastion.sh
