@@ -3,7 +3,7 @@ targetScope = 'subscription'
 param systemResourceGroupName string = 'aksWorkshopRG'
 param userBaseResourceGroupName string = 'aksWorkshopRG'
 param location string = deployment().location
-param vmCount int = 2
+param numOfUsers int = 2
 param imageReferenceId string
 param adminUsername string = 'azureuser'
 @secure()
@@ -17,7 +17,7 @@ resource systemResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 
-resource userResourceGroups 'Microsoft.Resources/resourceGroups@2021-04-01' = [for i in range(0, vmCount): {
+resource userResourceGroups 'Microsoft.Resources/resourceGroups@2021-04-01' = [for i in range(0, numOfUsers): {
   name: '${userBaseResourceGroupName}-user${i}'
   location: location
 }]
@@ -43,7 +43,7 @@ module storage 'modules/storage.bicep' = {
   }
 }
 
-module la 'modules/la.bicep' = [for i in range(0, vmCount): {
+module la 'modules/la.bicep' = [for i in range(0, numOfUsers): {
   name: 'la-${i}'
   scope: userResourceGroups[i]
   params: {
@@ -52,7 +52,7 @@ module la 'modules/la.bicep' = [for i in range(0, vmCount): {
   }
 }]
 
-module ai 'modules/ai.bicep' = [for i in range(0, vmCount): {
+module ai 'modules/ai.bicep' = [for i in range(0, numOfUsers): {
   name: 'ai-${i}'
   scope: userResourceGroups[i]
   params: {
@@ -62,37 +62,49 @@ module ai 'modules/ai.bicep' = [for i in range(0, vmCount): {
   }
 }]
 
-module vnet 'modules/vnet.bicep' = [for i in range(0, vmCount): {
-  name: 'vnet-${i}'
-  scope: userResourceGroups[i]
+module vnet 'modules/vnet.bicep' = {
+  name: 'vnet'
+  scope: systemResourceGroup
   params: {
-    name: 'vnet-${i}'
+    name: 'vnet'
     location: location
-    vnetPrefix: '172.${10+i}.0.0/16'
-    subnetPrefix: '172.${10+i}.0.0/24'
+    numOfUsers: numOfUsers
   }
-}]
+}
 
-module vm 'modules/vm.bicep' = [for i in range(0, vmCount): {
+module vm 'modules/vm.bicep' = [for i in range(0, numOfUsers): {
   name: 'vm-${i}'
   scope: userResourceGroups[i]
   params: {
     name: 'vm-${i}'
     location: location
-    vnetName: vnet[i].outputs.name
-    privateIPAddress: '172.${10+i}.0.10'
+    subnetId: vnet.outputs.vmSubnetId
+    privateIPAddress: '172.16.1.${10+i}'
     imageReferenceId: imageReferenceId
     adminUsername: adminUsername
     adminPassword: adminPassword
   }
 }]
 
-module aks 'modules/aks.bicep' = [for i in range(0, vmCount): {
+module aks 'modules/aks.bicep' = [for i in range(0, numOfUsers): {
   name: 'aks-${i}'
   scope: userResourceGroups[i]
   params: {
     name: 'aks-${i}'
     location: location
     laId: la[i].outputs.id
+    vnetName: vnet.name
+    subnetName: vnet.outputs.aksSubnets[i].name
+    subnetResourceGroupName: systemResourceGroup.name
+  }
+}]
+
+module roleAssignment 'modules/roleAssignment.bicep' = [for i in range(0, numOfUsers): {
+  name: 'roleassignment${i}'
+  scope: systemResourceGroup
+  params: {
+    vnetName: vnet.name
+    subnetName: vnet.outputs.aksSubnets[i].name
+    principalId: aks[i].outputs.principalId
   }
 }]
