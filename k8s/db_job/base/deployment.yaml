@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dbjob
+  name: dbjob
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dbjob
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: dbjob
+    spec:
+      containers:
+      - image: ghcr.io/levi106/hikaricp-sample-console:main-ms
+        name: hikaricp-sample-console
+        imagePullPolicy: Always
+        env:
+        - name: SPRING_DATASOURCE_CONNECTIONTESTQUERY
+          value: "SELECT 1"
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

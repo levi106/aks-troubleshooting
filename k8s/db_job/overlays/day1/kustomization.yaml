@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: day1
+
+resources:
+- namespace.yaml
+- ../../base
+
+patchesStrategicMerge:
+- custom-env.yaml
+- connectionstrings.yaml
+
+secretGenerator:
+- files:
+  - ai.txt
+  - db.txt
+  name: connectionstrings
+  type: Opaque

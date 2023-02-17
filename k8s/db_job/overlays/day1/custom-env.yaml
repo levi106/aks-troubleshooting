@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbjob
+spec:
+  template:
+    spec:
+      containers:
+      - name: hikaricp-sample-console
+        env:
+        - name: SPRING_DATASOURCE_MAXLIFETIME
+          value: "30000"
+        - name: SPRING_DATASOURCE_MAXPOOLSIZE
+          value: "1"
+        - name: LOGGING_LEVEL_COM_ZAXXER_HIKARI_HIKARICONFIG
+          value: "DEBUG"
+        - name: LOGGING_LEVEL_COM_ZAXXER_HIKARI
+          value: "TRACE"
+        - name: COM_EXAMPLE_HIKARICPSAMPLECONSOLE_THREADCOUNT
+          value: "1"

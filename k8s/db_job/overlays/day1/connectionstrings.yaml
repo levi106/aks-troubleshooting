@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbjob
+spec:
+  template:
+    spec:
+      containers:
+      - name: hikaricp-sample-console
+        env:
+        - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: connectionstrings
+              key: ai.txt
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: connectionstrings
+              key: db.txt
