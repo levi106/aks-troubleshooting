@@ -21,8 +21,6 @@ resource sqlDb 'Microsoft.Sql/servers/databases@2021-11-01' = {
   parent: sqlServer
   location: location
   sku: {
-    name: 'Standard'
-    tier: 'Standard'
-    capacity: 100
+    name: 'Basic'
   }
 }

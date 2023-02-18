@@ -1,7 +1,7 @@
 param name string
 param location string
 param aksVersion string = ''
-param systemNodeCount int = 1
+param systemNodeCount int = 2
 param systemNodeVmSize string = 'Standard_D2s_v3'
 param laId string
 param vnetName string
