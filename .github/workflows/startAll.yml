@@ -1,4 +1,4 @@
-name: Start All AKS Clusters
+name: Start All
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
       - name: Azure CLI script file
         uses: azure/CLI@v1
         with:
@@ -22,4 +22,7 @@ jobs:
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/utils/start_all_clusters.sh
             $GITHUB_WORKSPACE/utils/start_all_clusters.sh
-           
+            chmod +x $GITHUB_WORKSPACE/utils/start_all_vms.sh
+            $GITHUB_WORKSPACE/utils/start_all_vms.sh
+            chmod +x $GITHUB_WORKSPACE/utils/create_bastion.sh
+            $GITHUB_WORKSPACE/utils/create_bastion.sh
