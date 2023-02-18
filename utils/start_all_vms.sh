@@ -5,4 +5,4 @@ Q='Resources
 | where resourceGroup startswith "aksWorkshopRG-"'
 
 az config set extension.use_dynamic_install=yes_without_prompt
-az vm start --ids $(az graph query -q "$Q" --query "data[].id" -o tsv)           
+az vm start --no-wait --ids $(az graph query -q "$Q" --query "data[].id" -o tsv)
