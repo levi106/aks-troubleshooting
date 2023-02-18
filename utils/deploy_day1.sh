@@ -11,7 +11,7 @@ Q='Resources
 
 serverName=$(az sql server list -g aksWorkshopRG --query "[].name" --output tsv)
 dbName=$(az sql db list -g aksWorkshopRG -s ${serverName} --query "[].name" --output tsv | grep "db-")
-echo -n "jdbc:sqlserver://${serverName}.database.windows.net:1433;database=${dbName};user=sqladmin@${serverName};password=${3};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=15;socketTimeout=30000;connectRetryCount=0" > k8s/db_job/overlays/day1/db.txt
+echo -n "jdbc:sqlserver://${serverName}.database.windows.net:1433;database=${dbName};user=sqladmin@${serverName};password=${1};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=15;socketTimeout=30000;connectRetryCount=0" > k8s/db_job/overlays/day1/db.txt
 
 az graph query -q "$Q" --query "data[].[name,resourceGroup]" -o tsv \
 | xargs -n 2 sh -c 'echo $(az monitor app-insights component show -g $1 --query "[0].connectionString" -o tsv) > k8s/db_job/overlays/day1/ai.txt \
