@@ -1,4 +1,4 @@
-name: Delete image template
+name: Delete Image template
 
 on:
   workflow_dispatch:
