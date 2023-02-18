@@ -22,7 +22,7 @@ jobs:
           inlineScript: |
             mkdir $GITHUB_WORKSPACE/bin
             export PATH=$PATH:$GITHUB_WORKSPACE/bin
-            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl --kubeclogin-install-location $GITHUB_WORKSPACE/bin/kubelogin
+            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
             cd $GITHUB_WORKSPACE
             chmod +x $GITHUB_WORKSPACE/utils/deploy_day1.sh
             $GITHUB_WORKSPACE/utils/deploy_day1.sh ${{ secrets.SQLADMINPASSWORD }}
