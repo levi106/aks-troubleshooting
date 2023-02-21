@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: ghcr.io/levi106/java-demo:main-ms
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
