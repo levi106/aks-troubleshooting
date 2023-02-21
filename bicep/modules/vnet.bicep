@@ -137,15 +137,9 @@ resource bastionNsg 'Microsoft.Network/networkSecurityGroups@2020-11-01' = {
   }
 }
 
-resource aksSubnetNsg 'Microsoft.Network/networkSecurityGroups@2020-11-01' = [for i in range(0, numOfUsers): {
-  name: 'nsg-aks-${i}'
-  location: location
-}]
-
 var aksSubnetConfigurations = [for i in range(0, numOfUsers): {
   name: 'aksSubnet${i}'
   addressPrefix: '172.16.${(i+1)*4}.0/23'
-  nsgId: aksSubnetNsg[i].id
 }]
 
 var subnetConfigurations = concat([
