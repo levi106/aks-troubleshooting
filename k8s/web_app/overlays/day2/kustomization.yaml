@@ -11,6 +11,7 @@ patchesStrategicMerge:
 - hikari-env.yaml
 - ai.yaml
 - db.yaml
+- dns-label.yaml
 
 secretGenerator:
 - name: ai
