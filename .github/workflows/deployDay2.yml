@@ -1,0 +1,29 @@
+name: Deploy Day2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script file
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.45.0
+          inlineScript: |
+            mkdir $GITHUB_WORKSPACE/bin
+            export PATH=$PATH:$GITHUB_WORKSPACE/bin
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
+            cd $GITHUB_WORKSPACE
+            chmod +x $GITHUB_WORKSPACE/utils/deploy_day2.sh
+            $GITHUB_WORKSPACE/utils/deploy_day2.sh ${{ secrets.SQLADMINPASSWORD }}
