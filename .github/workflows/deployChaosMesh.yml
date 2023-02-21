@@ -1,0 +1,32 @@
+name: Install Chaos Mesh
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script file
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.45.0
+          inlineScript: |
+            mkdir $GITHUB_WORKSPACE/bin
+            export PATH=$PATH:$GITHUB_WORKSPACE/bin
+            wget https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz
+            tar zxvf helm-v3.11.1-linux-amd64.tar.gz
+            mv linux-amd64/helm $GITHUB_WORKSPACE/bin/helm
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
+            cd $GITHUB_WORKSPACE
+            chmod +x $GITHUB_WORKSPACE/utils/install_chaos_mesh.sh
+            $GITHUB_WORKSPACE/utils/install_chaos_mesh.sh
