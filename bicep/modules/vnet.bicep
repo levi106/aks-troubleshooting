@@ -168,9 +168,9 @@ resource vnet 'Microsoft.Network/virtualNetworks@2019-12-01' = {
       name: config.name
       properties: {
         addressPrefix: config.addressPrefix
-        networkSecurityGroup: {
+        networkSecurityGroup: config.nsgId != null ? {
           id: config.nsgId
-        }
+        } : null
       }
     }]
   }
