@@ -9,16 +9,19 @@ resource target 'Microsoft.ContainerService/managedClusters/providers/targets@20
   name: '${aksName}/Microsoft.Chaos/Microsoft-AzureKubernetesServiceChaosMesh'
   location: location
   dependsOn: [aks]
+  properties: {}
 }
 
 resource networkChaos 'Microsoft.ContainerService/managedClusters/providers/targets/capabilities@2021-09-15-preview' = {
   name: '${aksName}/Microsoft.Chaos/Microsoft-AzureKubernetesServiceChaosMesh/NetworkChaos-2.1'
   location: location
   dependsOn: [target]
+  properties: {}
 }
 
 resource podChaos 'Microsoft.ContainerService/managedClusters/providers/targets/capabilities@2021-09-15-preview' = {
   name: '${aksName}/Microsoft.Chaos/Microsoft-AzureKubernetesServiceChaosMesh/PodChaos-2.1'
   location: location
   dependsOn: [target]
+  properties: {}
 }

@@ -1,0 +1,13 @@
+[
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user0_aks-0_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-a56014fbe15164f0fa096c66bafcc11c",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user1_aks-1_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-a2646d0513d0d4dbcbc60b357fc7f488",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user2_aks-2_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-a6cd5a597fbcb4cd0923ec1e2d928f6c",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user3_aks-3_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-afd146cb81a4044f4a48f1a42f94a068",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user4_aks-4_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-a8f77549421b04871b6c19b2b039f1a4",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user5_aks-5_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-ad4fa102a45c54b7baec50b11c7a27d5",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user6_aks-6_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-a4b37575ab09e4366a1a4c7a3dbb3959",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user7_aks-7_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-a1af089558a6e4af18cd19c54648eebf",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user8_aks-8_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-a3f68e9778dd643c8a0cfc1ad8bfb7c9",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user9_aks-9_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-ab06cd2a2127b423fb83bc9aaf8d533b",
+"/subscriptions/95e8938e-6ef3-4d1c-bd2c-084c3bb9c343/resourceGroups/mc_aksworkshoprg-user10_aks-10_japaneast/providers/Microsoft.Network/publicIPAddresses/kubernetes-af9df61c822a448c681799e66f5340af"
+]
