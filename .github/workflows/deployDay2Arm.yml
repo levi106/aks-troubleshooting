@@ -21,6 +21,17 @@ jobs:
           azcliversion: 2.45.0
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
-            cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/deploy_day2_arm.sh
-            $GITHUB_WORKSPACE/utils/deploy_day2_arm.sh ${{ secrets.LOCATION }} ${{ secrets.VMCOUNT }}
+            cd bicep
+            Q='Resources
+            | where type =~ "Microsoft.Network/publicIPAddresses"
+            | where resourceGroup startswith "MC_aksWorkshopRG-"
+            | where tags["k8s-azure-service"] =~ "day2/webapp"
+            | project id'
+
+            serviceIPs=$(az graph query -q "$Q" --query "data[].id" -o json)
+
+            az deployment sub create -l ${{ secrets.LOCATION }} \
+                --name aksWorkshopDeploymentDay2 \
+                --template-file=../bicep/day2.bicep \
+                --parameters serviceIPs=$serviceIPs \
+                --parameters numOfUsers=${{ secrets.VMCOUNT }}
