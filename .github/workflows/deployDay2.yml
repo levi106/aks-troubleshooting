@@ -1,4 +1,4 @@
-name: Deploy Day2
+name: Deploy Day2 K8s
 
 on:
   workflow_dispatch:
