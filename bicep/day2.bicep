@@ -42,7 +42,7 @@ module chaos 'modules/chaos.bicep' = [for i in range(0, numOfUsers): {
   name: 'chaos-${i}'
   scope: userResourceGroups[i]
   params: {
-    aksName: 'chaos-${i}'
+    aksName: 'aks-${i}'
     location: location
   }
 }]
