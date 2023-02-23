@@ -11,7 +11,7 @@ Q='Resources
 | where tags["k8s-azure-service"] =~ "day2/webapp"
 | project id'
 
-$serviceIPs=$(az graph query -q "$Q" --query "data[].id" -o json)
+serviceIPs=$(az graph query -q "$Q" --query "data[].id" -o json)
 
 az deployment sub create -l $0 \
     --name aksWorkshopDeploymentDay2 \
