@@ -1,6 +1,6 @@
 param name string
 param location string
-param chaosTargetResourceIds array
+param targets array
 param jsonSpec string
 
 resource experiment 'Microsoft.Chaos/experiments@2022-10-01-preview' = {
@@ -15,10 +15,7 @@ resource experiment 'Microsoft.Chaos/experiments@2022-10-01-preview' = {
       {
         id: 'Selector1'
         type: 'List'
-        targets: [for id in chaosTargetResourceIds: {
-          type: 'ChaosTarget'
-          id: id
-        }]
+        targets: targets
       }
     ]
     steps: [

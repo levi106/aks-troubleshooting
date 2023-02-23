@@ -8,6 +8,10 @@ param numOfUsers int
 
 var jsonSpec = '{"action":"loss","mode":"all","selector":{"namespaces":["day2"],"labelSelectors":{"app":"webapp"}},"loss":{"loss":"100","correlation":"100"},"direction":"to","externalTargets":["0.0.0.0/1:1433","128.0.0.0/1:1433"],"duration":"30m"}'
 var chaosName = 'day2Exp'
+var targets = [for i in range(0, numOfUsers): {
+  type: 'ChaosTarget'
+  id: '${subscription().id}/resourceGroups/${userBaseResourceGroupName}-user${i}/providers/Microsoft.ContainerService/managedClusters/aks-${i}'
+}]
 
 resource systemResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
   name: systemResourceGroupName
@@ -15,11 +19,6 @@ resource systemResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' exi
 
 resource userResourceGroups 'Microsoft.Resources/resourceGroups@2021-04-01' existing = [for i in range(0, numOfUsers): {
   name: '${userBaseResourceGroupName}-user${i}'
-}]
-
-resource aks 'Microsoft.ContainerService/managedClusters@2022-11-01' existing = [for i in range(0, numOfUsers): {
-  name: 'aks-${i}'
-  scope: userResourceGroups[i]
 }]
 
 resource ai 'Microsoft.Insights/components@2020-02-02' existing = [for i in range(0, numOfUsers): {
@@ -45,7 +44,8 @@ module chaos 'modules/chaos.bicep' = {
   params: {
     name: chaosName
     location: location
-    chaosTargetResourceIds: [for i in range(0,numOfUsers): aks[i].id]
+    targets: targets
     jsonSpec: jsonSpec
   }
 }
+
