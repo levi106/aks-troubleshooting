@@ -38,7 +38,16 @@ module webtest 'modules/webtest.bicep' = [for i in range(0, numOfUsers): {
   }
 }]
 
-module chaos 'modules/chaos.bicep' = {
+module chaos 'modules/chaos.bicep' = [for i in range(0, numOfUsers): {
+  name: 'chaos-${i}'
+  scope: userResourceGroups[i]
+  params: {
+    aksName: 'chaos-${i}'
+    location: location
+  }
+}]
+
+module experiment 'modules/experiment.bicep' = {
   name: chaosName
   scope: systemResourceGroup
   params: {
@@ -47,5 +56,14 @@ module chaos 'modules/chaos.bicep' = {
     targets: targets
     jsonSpec: jsonSpec
   }
+  dependsOn: chaos
 }
 
+module roleAssignment 'modules/experimentRoleAssignment.bicep' = [for i in range(0, numOfUsers): {
+  name: 'aks-${i}-roleAssignment'
+  scope: userResourceGroups[i]
+  params: {
+    aksName: 'aks-${i}'
+    principalId: experiment.outputs.principalId
+  }
+}]

@@ -1,46 +1,24 @@
-param name string
+param aksName string
 param location string
-param targets array
-param jsonSpec string
 
-resource experiment 'Microsoft.Chaos/experiments@2022-10-01-preview' = {
-  name: name
+resource aks 'Microsoft.ContainerService/managedClusters@2022-09-01' existing = {
+  name: aksName
+}
+
+resource target 'Microsoft.ContainerService/managedClusters/providers/targets@2021-09-15-preview' = {
+  name: '${aksName}/Microsoft.Chaos/Microsoft-AzureKubernetesServiceChaosMesh'
   location: location
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    startOnCreation: false
-    selectors: [
-      {
-        id: 'Selector1'
-        type: 'List'
-        targets: targets
-      }
-    ]
-    steps: [
-      {
-        name: 'Step1'
-        branches: [
-          {
-            name: 'Branch1'
-            actions: [
-              {
-                duration: 'PT10M'
-                selectorId: 'Selector1'
-                type: 'continuous'
-                name: 'urn:csci:microsoft:azureKubernetesServiceChaosMesh:networkChaos/2.1'
-                parameters: [
-                  {
-                    key: 'jsonSpec'
-                    value: jsonSpec
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  dependsOn: [aks]
+}
+
+resource networkChaos 'Microsoft.ContainerService/managedClusters/providers/targets/capabilities@2021-09-15-preview' = {
+  name: '${aksName}/Microsoft.Chaos/Microsoft-AzureKubernetesServiceChaosMesh/NetworkChaos-2.1'
+  location: location
+  dependsOn: [target]
+}
+
+resource podChaos 'Microsoft.ContainerService/managedClusters/providers/targets/capabilities@2021-09-15-preview' = {
+  name: '${aksName}/Microsoft.Chaos/Microsoft-AzureKubernetesServiceChaosMesh/PodChaos-2.1'
+  location: location
+  dependsOn: [target]
 }

@@ -108,7 +108,7 @@ module aks 'modules/aks.bicep' = [for i in range(0, numOfUsers): {
   }
 }]
 
-module roleAssignment 'modules/roleAssignment.bicep' = [for i in range(0, numOfUsers): {
+module roleAssignment 'modules/subnetRoleAssignment.bicep' = [for i in range(0, numOfUsers): {
   name: 'roleassignment${i}'
   scope: systemResourceGroup
   params: {
