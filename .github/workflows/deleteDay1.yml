@@ -1,4 +1,4 @@
-name: Delete Day1
+name: Delete Day1 K8s
 
 on:
   workflow_dispatch:
