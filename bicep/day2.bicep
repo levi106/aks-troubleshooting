@@ -6,7 +6,7 @@ param location string = deployment().location
 param serviceIPs array
 param numOfUsers int
 
-var jsonSpec = '{"action":"loss","mode":"all","selector":{"namespaces":["day2"],"labelSelectors":{"app":"webapp"}},"loss":{"loss":"100","correlation":"100"},"direction":"to","externalTargets":["0.0.0.0/1:1433","128.0.0.0/1:1433"],"duration":"30m"}'
+var jsonSpec = '{"action":"loss","mode":"all","selector":{"namespaces":["day2"],"labelSelectors":{"app":"webapp"}},"loss":{"loss":"100","correlation":"100"},"direction":"to","externalTargets":["0.0.0.0/1:1433","128.0.0.0/1:1433"],"duration":"120m"}'
 var chaosName = 'day2Exp'
 var targets = [for i in range(0, numOfUsers): {
   type: 'ChaosTarget'
@@ -55,6 +55,7 @@ module experiment 'modules/experiment.bicep' = {
     location: location
     targets: targets
     jsonSpec: jsonSpec
+    duration: 'PT120M'
   }
   dependsOn: chaos
 }

@@ -2,6 +2,7 @@ param name string
 param location string
 param targets array
 param jsonSpec string
+param duration string
 
 resource experiment 'Microsoft.Chaos/experiments@2022-10-01-preview' = {
   name: name
@@ -26,7 +27,7 @@ resource experiment 'Microsoft.Chaos/experiments@2022-10-01-preview' = {
             name: 'Branch1'
             actions: [
               {
-                duration: 'PT10M'
+                duration: duration
                 selectorId: 'Selector1'
                 type: 'continuous'
                 name: 'urn:csci:microsoft:azureKubernetesServiceChaosMesh:networkChaos/2.1'
