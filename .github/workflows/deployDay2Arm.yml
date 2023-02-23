@@ -28,10 +28,10 @@ jobs:
             | where tags["k8s-azure-service"] =~ "day2/webapp"
             | project id'
 
-            serviceIPs=$(az graph query -q "$Q" --query "data[].id" -o json)
+            az graph query -q "$Q" --query "data[].id" -o json > serviceIPs.json
 
             az deployment sub create -l ${{ secrets.LOCATION }} \
                 --name aksWorkshopDeploymentDay2 \
                 --template-file=../bicep/day2.bicep \
-                --parameters serviceIPs=$serviceIPs \
+                --parameters serviceIPs=@serviceIPs.json \
                 --parameters numOfUsers=${{ secrets.VMCOUNT }}
