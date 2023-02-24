@@ -12,3 +12,6 @@ spec:
           value: "30000"
         - name: LOGGING_LEVEL_COM_ZAXXER_HIKARI
           value: "DEBUG"
+        - name: APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL
+          value: "DEBUG"
+
