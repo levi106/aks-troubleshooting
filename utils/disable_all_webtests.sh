@@ -5,4 +5,4 @@ Q='Resources
 | where resourceGroup startswith "aksWorkshopRG-"'
 
 az graph query -q "$Q" --query "data[].[name,resourceGroup]" -o tsv \
-| xargs -n 2 sh -c 'az monitor app-insights web-test update -n $0 -g $1 --enabled false --no-wait'
+| xargs -n 2 sh -c 'az monitor app-insights web-test update -n $0 -g $1 --enabled false'
