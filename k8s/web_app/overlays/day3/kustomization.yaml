@@ -5,10 +5,12 @@ namespace: day3
 
 resources:
 - namespace.yaml
-- ../day2
+- ../../base
 
 patchesStrategicMerge:
 - hikari-env.yaml
+- job-env.yaml
+- job-resource.yaml
 - ai.yaml
 - db.yaml
 
