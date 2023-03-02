@@ -7,11 +7,14 @@ spec:
     spec:
       containers:
       - name: webapp
+        env:
+        - name: APP_INITIAL_MEMORY_ALLOCATION
+          value: "26214400"
         resources:
           requests:
-            memory: "256Mi"
+            memory: "300Mi"
             cpu: "100m"
           limits:
-            memory: "256Mi"
+            memory: "300Mi"
             cpu: "500m"
 

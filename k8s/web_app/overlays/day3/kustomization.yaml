@@ -9,8 +9,7 @@ resources:
 
 patchesStrategicMerge:
 - hikari-env.yaml
-- job-env.yaml
-- job-resource.yaml
+- init-env.yaml
 - ai.yaml
 - db.yaml
 
