@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  template:
+    spec:
+      containers:
+      - name: webapp
+        env:
+        - name: APP_JOB_LEAK_ENABLED
+          value: "true"
+
