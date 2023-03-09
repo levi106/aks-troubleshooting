@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-      - name: ngnix
+      - name: nginx
         resources:
           requests:
             memory: "512Mi"
