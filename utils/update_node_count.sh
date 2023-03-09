@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-NodeCount=$1
+export NodeCount=$1
 Q='Resources
 | where type =~ "Microsoft.ContainerService/managedClusters"
 | where resourceGroup startswith "aksWorkshopRG-"'
