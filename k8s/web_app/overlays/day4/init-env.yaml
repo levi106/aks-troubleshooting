@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  template:
+    spec:
+      containers:
+      - name: webapp
+        env:
+        - name: APP_INITIAL_MEMORY_ALLOCATION
+          value: "26214400"
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "500m"
+          limits:
+            memory: "300Mi"
+            cpu: "500m"
+

@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: day4
+
+resources:
+- namespace.yaml
+- ../../base
+
+patchesStrategicMerge:
+- hikari-env.yaml
+- init-env.yaml
+- ai.yaml
+- db.yaml
+
+secretGenerator:
+- name: ai
+  type: Opaque
+  envs:
+  - .env.ai
+- name: db
+  type: Opaque
+  envs:
+  - .env.db
+
+generatorOptions:
+  disableNameSuffixHash: true
