@@ -1,4 +1,4 @@
-name: Deploy Day3 ARM
+name: Day4 Pre Step3 Deploy K8s Resources
 
 on:
   workflow_dispatch:
@@ -20,7 +20,10 @@ jobs:
         with:
           azcliversion: 2.45.0
           inlineScript: |
-            cd utils
+            mkdir $GITHUB_WORKSPACE/bin
+            export PATH=$PATH:$GITHUB_WORKSPACE/bin
             az config set extension.use_dynamic_install=yes_without_prompt
-            chmod +x $GITHUB_WORKSPACE/utils/deploy_day3_arm.sh
-            $GITHUB_WORKSPACE/utils/deploy_day3_arm.sh ${{ secrets.LOCATION }} ${{ secrets.VMCOUNT }}
+            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
+            cd $GITHUB_WORKSPACE
+            chmod +x $GITHUB_WORKSPACE/utils/deploy_day4.sh
+            $GITHUB_WORKSPACE/utils/deploy_day4.sh ${{ secrets.SQLADMINPASSWORD }}

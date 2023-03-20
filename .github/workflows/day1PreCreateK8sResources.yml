@@ -1,4 +1,4 @@
-name: Deploy Day1 K8s
+name: Day1 Pre Step1 Deploy K8s Resources
 
 on:
   workflow_dispatch:

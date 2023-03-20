@@ -1,4 +1,4 @@
-name: Delete Day3 K8s
+name: Day4 Post Step3 Update Node Count
 
 on:
   workflow_dispatch:
@@ -20,10 +20,7 @@ jobs:
         with:
           azcliversion: 2.45.0
           inlineScript: |
-            mkdir $GITHUB_WORKSPACE/bin
-            export PATH=$PATH:$GITHUB_WORKSPACE/bin
             az config set extension.use_dynamic_install=yes_without_prompt
-            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/delete_day3.sh
-            $GITHUB_WORKSPACE/utils/delete_day3.sh
+            chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
+            $GITHUB_WORKSPACE/utils/update_node_count.sh 2

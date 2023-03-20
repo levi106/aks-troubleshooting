@@ -1,4 +1,4 @@
-name: Deploy Day4 ARM Pre
+name: Day2 Post Step1 Delete K8s Resources
 
 on:
   workflow_dispatch:
@@ -20,7 +20,10 @@ jobs:
         with:
           azcliversion: 2.45.0
           inlineScript: |
+            mkdir $GITHUB_WORKSPACE/bin
+            export PATH=$PATH:$GITHUB_WORKSPACE/bin
             az config set extension.use_dynamic_install=yes_without_prompt
+            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
-            $GITHUB_WORKSPACE/utils/update_node_count.sh 1
+            chmod +x $GITHUB_WORKSPACE/utils/delete_day2.sh
+            $GITHUB_WORKSPACE/utils/delete_day2.sh
