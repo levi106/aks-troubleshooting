@@ -20,7 +20,7 @@ echo \" >> serviceIPs.json
 echo "]" >> serviceIPs.json
 
 az deployment sub create -l ${1} \
-    --name aksWorkshopDeploymentDay4 \
-    --template-file=../bicep/day4.bicep \
+    --name aksWorkshopDeploymentDay5 \
+    --template-file=../bicep/day5.bicep \
     --parameters serviceIPs=@serviceIPs.json \
     --parameters numOfUsers=${2}
