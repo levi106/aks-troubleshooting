@@ -9,6 +9,7 @@ DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 LAYER=day5
 
 ${DIR}/update_node_count.sh 1
+${DIR}/simulate_node_failure.sh
 ${DIR}/deploy_web_app.sh ${1} ${LAYER}
-# TODO: The public IPs may not yet be assigned.
 ${DIR}/update_webtest_target_ips.sh ${2} ${3} ${LAYER}
+${DIR}/enable_all_webtests.sh

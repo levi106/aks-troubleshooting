@@ -1,4 +1,4 @@
-name: Day5 Pre Step2 - Simulate Node Failure
+name: Day5 Utils - Recover form Node failure
 
 on:
   workflow_dispatch:
@@ -22,5 +22,5 @@ jobs:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/simulate_node_failure.sh
-            $GITHUB_WORKSPACE/utils/simulate_node_failure.sh
+            chmod +x $GITHUB_WORKSPACE/utils/recover_from_node_failure.sh
+            $GITHUB_WORKSPACE/utils/recover_from_node_failure.sh

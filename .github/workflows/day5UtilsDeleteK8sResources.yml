@@ -1,4 +1,4 @@
-name: Day5 Post - Delete All Resources
+name: Day5 Utils - Delete K8s Resources
 
 on:
   workflow_dispatch:
@@ -20,13 +20,7 @@ jobs:
         with:
           azcliversion: 2.45.0
           inlineScript: |
-            mkdir $GITHUB_WORKSPACE/bin
-            export PATH=$PATH:$GITHUB_WORKSPACE/bin
             az config set extension.use_dynamic_install=yes_without_prompt
-            az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/recover_from_node_failure.sh
-            chmod +x $GITHUB_WORKSPACE/utils/delete_day5.sh
             chmod +x $GITHUB_WORKSPACE/utils/delete_web_app.sh
-            chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
-            $GITHUB_WORKSPACE/utils/delete_day5.sh
+            $GITHUB_WORKSPACE/utils/${DIR}/delete_web_app.sh day5

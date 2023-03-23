@@ -1,4 +1,4 @@
-name: Day5 Pre Step1 - Deploy
+name: Day5 Pre - Deploy
 
 on:
   workflow_dispatch:
@@ -25,8 +25,10 @@ jobs:
             az config set extension.use_dynamic_install=yes_without_prompt
             az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/deploy_day5.sh
             chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
+            chmod +x $GITHUB_WORKSPACE/utils/simulate_node_failure.sh
+            chmod +x $GITHUB_WORKSPACE/utils/deploy_day5.sh
             chmod +x $GITHUB_WORKSPACE/utils/deploy_web_app.sh
             chmod +x $GITHUB_WORKSPACE/utils/update_webtest_target_ips.sh
+            chmod +x $GITHUB_WORKSPACE/utils/enable_all_webtests.sh
             $GITHUB_WORKSPACE/utils/deploy_day5.sh ${{ secrets.SQLADMINPASSWORD }} ${{ secrets.LOCATION }} ${{ secrets.VMCOUNT }}
