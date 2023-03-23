@@ -1,4 +1,4 @@
-name: Day4 Post Step3 Update Node Count
+name: Day5 Step 2 Pre Simulate Node Failure
 
 on:
   workflow_dispatch:
@@ -22,5 +22,5 @@ jobs:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
-            $GITHUB_WORKSPACE/utils/update_node_count.sh 2
+            chmod +x $GITHUB_WORKSPACE/utils/simulate_node_failure.sh
+            $GITHUB_WORKSPACE/utils/simulate_node_failure.sh

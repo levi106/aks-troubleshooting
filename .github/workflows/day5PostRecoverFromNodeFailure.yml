@@ -1,4 +1,4 @@
-name: Day5 Step 1 Pre Deploy
+name: Day4 Post Step1 Recover form Node failure
 
 on:
   workflow_dispatch:
@@ -22,8 +22,5 @@ jobs:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/deploy_day5.sh
-            chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
-            chmod +x $GITHUB_WORKSPACE/utils/deploy_web_app.sh
-            chmod +x $GITHUB_WORKSPACE/utils/update_webtest_target_ips.sh
-            $GITHUB_WORKSPACE/utils/deploy_day5.sh ${{ secrets.SQLADMINPASSWORD }} ${{ secrets.LOCATION }} ${{ secrets.VMCOUNT }} Day5
+            chmod +x $GITHUB_WORKSPACE/utils/recover_from_node_failure.sh
+            $GITHUB_WORKSPACE/utils/recover_from_node_failure.sh
