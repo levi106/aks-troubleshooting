@@ -1,4 +1,4 @@
-#!/bin/bassh
+#!/bin/bash
 
 if [ $# -ne 1 ]; then
   echo ./update_node_count.sh "Node count"
