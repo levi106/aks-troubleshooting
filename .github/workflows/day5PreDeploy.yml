@@ -29,4 +29,4 @@ jobs:
             chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
             chmod +x $GITHUB_WORKSPACE/utils/deploy_web_app.sh
             chmod +x $GITHUB_WORKSPACE/utils/update_webtest_target_ips.sh
-            $GITHUB_WORKSPACE/utils/deploy_day5.sh ${{ secrets.SQLADMINPASSWORD }} ${{ secrets.LOCATION }} ${{ secrets.VMCOUNT }} day5
+            $GITHUB_WORKSPACE/utils/deploy_day5.sh ${{ secrets.SQLADMINPASSWORD }} ${{ secrets.LOCATION }} ${{ secrets.VMCOUNT }}
