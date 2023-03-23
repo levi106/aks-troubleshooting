@@ -5,7 +5,7 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-DIR="$( dirname -- $( realpath -- "${BASH_SOURCE[0]}" ) )"
+DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 export LAYER=${2}
 
 Q='Resources

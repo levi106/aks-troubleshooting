@@ -1,4 +1,4 @@
-name: Day5 Post Step3 Delete Nginx
+name: Day5 Post Step2 - Delete All Resources
 
 on:
   workflow_dispatch:
@@ -25,5 +25,7 @@ jobs:
             az config set extension.use_dynamic_install=yes_without_prompt
             az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
             cd $GITHUB_WORKSPACE
-            chmod +x $GITHUB_WORKSPACE/utils/delete_nginx.sh
-            $GITHUB_WORKSPACE/utils/delete_nginx.sh cpu
+            chmod +x $GITHUB_WORKSPACE/utils/delete_day5.sh
+            chmod +x $GITHUB_WORKSPACE/utils/delete_web_app.sh
+            chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
+            $GITHUB_WORKSPACE/utils/delete_day5.sh

@@ -1,4 +1,4 @@
-name: Day4 Post Step1 Recover form Node failure
+name: Day5 Post Step1 - Recover form Node failure
 
 on:
   workflow_dispatch:

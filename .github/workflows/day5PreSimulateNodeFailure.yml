@@ -1,4 +1,4 @@
-name: Day5 Step 2 Pre Simulate Node Failure
+name: Day5 Pre Step2 - Simulate Node Failure
 
 on:
   workflow_dispatch:
