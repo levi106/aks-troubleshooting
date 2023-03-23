@@ -10,6 +10,15 @@ DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 echo "[" > serviceIPs.json
 
 N=$(expr ${2} - 1)
+
+count=0
+while [ ! $(az graph query -q "Resources | where type =~ 'Microsoft.Network/publicIPAddresses' | where resourceGroup     startswith 'mc_aksworkshoprg-user' | where tags['k8s-azure-service'] =~ 'day5/webapp'" --query "total_records" -o t    sv) -ne 11 ]; do
+    [[ $count -eq 30 ]] && break
+    echo retry
+    sleep 10
+    count=$((count+1))
+done
+
 for ((i=0;i<N;++i))
 do
     echo -n \" >> serviceIPs.json
