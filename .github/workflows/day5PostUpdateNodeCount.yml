@@ -1,4 +1,4 @@
-name: Day5 Pre Step4 Deploy ARM Resources
+name: Day4 Post Step3 Update Node Count
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
         with:
           azcliversion: 2.45.0
           inlineScript: |
-            cd utils
             az config set extension.use_dynamic_install=yes_without_prompt
-            chmod +x $GITHUB_WORKSPACE/utils/deploy_day5_arm.sh
-            $GITHUB_WORKSPACE/utils/deploy_day5_arm.sh ${{ secrets.LOCATION }} ${{ secrets.VMCOUNT }}
+            cd $GITHUB_WORKSPACE
+            chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
+            $GITHUB_WORKSPACE/utils/update_node_count.sh 2

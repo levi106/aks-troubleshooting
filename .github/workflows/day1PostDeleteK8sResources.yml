@@ -1,4 +1,4 @@
-name: Day1 Post 1. Delete K8s Resources
+name: Day1 Post Step1 Delete K8s Resources
 
 on:
   workflow_dispatch:
