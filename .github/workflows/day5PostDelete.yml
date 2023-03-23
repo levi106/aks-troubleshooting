@@ -26,7 +26,8 @@ jobs:
             az aks install-cli --install-location $GITHUB_WORKSPACE/bin/kubectl
             cd $GITHUB_WORKSPACE
             chmod +x $GITHUB_WORKSPACE/utils/recover_from_node_failure.sh
-            chmod +x $GITHUB_WORKSPACE/utils/delete_day5.sh
             chmod +x $GITHUB_WORKSPACE/utils/delete_web_app.sh
             chmod +x $GITHUB_WORKSPACE/utils/update_node_count.sh
+            chmod +x $GITHUB_WORKSPACE/utils/disable_all_webtests.sh
+            chmod +x $GITHUB_WORKSPACE/utils/delete_day5.sh
             $GITHUB_WORKSPACE/utils/delete_day5.sh

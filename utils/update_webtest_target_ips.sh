@@ -12,7 +12,7 @@ echo "[" > serviceIPs.json
 N=$(expr ${2} - 1)
 
 count=0
-while [ ! $(az graph query -q "Resources | where type =~ 'Microsoft.Network/publicIPAddresses' | where resourceGroup     startswith 'mc_aksworkshoprg-user' | where tags['k8s-azure-service'] =~ 'day5/webapp'" --query "total_records" -o t    sv) -ne 11 ]; do
+while [ $(az graph query -q "Resources | where type =~ 'Microsoft.Network/publicIPAddresses' | where resourceGroup startswith 'mc_aksworkshoprg-user' | where tags['k8s-azure-service'] =~ 'day5/webapp'" --query "total_records" -o tsv) -ne 11 ]; do
     [[ $count -eq 30 ]] && exit 1
     echo retry
     sleep 10
