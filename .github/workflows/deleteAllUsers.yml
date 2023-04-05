@@ -1,0 +1,25 @@
+name: Delete All Users
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Azure CLI script file
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.45.0
+          inlineScript: |
+            chmod +x $GITHUB_WORKSPACE/utils/delete_ad_users.sh
+            $GITHUB_WORKSPACE/utils/delete_ad_users.sh ${{ secrets.VMCOUNT }} ${{ secrets.TENANT_NAME }}
+           
