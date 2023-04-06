@@ -20,6 +20,7 @@ jobs:
         with:
           azcliversion: 2.45.0
           inlineScript: |
+            az config set extension.use_dynamic_install=yes_without_prompt
             chmod +x $GITHUB_WORKSPACE/utils/delete_all_user_resource_groups.sh
             chmod +x $GITHUB_WORKSPACE/utils/delete_system_resource_group.sh
             $GITHUB_WORKSPACE/utils/delete_all_user_resource_groups.sh
